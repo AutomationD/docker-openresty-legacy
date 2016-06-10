@@ -10,6 +10,8 @@ MAINTAINER Dmitry Kireev <dmitry@kireev.co>
 # Build Openresty
 ################################################################################
 
+# Fix it to a repo instead of using httpredir
+RUN sed -i "s/httpredir.debian.org/`curl -s -D - http://httpredir.debian.org/demo/debian/ | awk '/^Link:/ { print $2 }' | sed -e 's@<http://\(.*\)/debian/>;@\1@g'`/" /etc/apt/sources.list
 
 # Set environment.
 ENV PAGESPEED_VERSION="1.11.33.0"

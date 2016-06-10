@@ -10,9 +10,7 @@ MAINTAINER Dmitry Kireev <dmitry@kireev.co>
 # Build Openresty
 ################################################################################
 
-# Fix it to a repo instead of using httpredir
-RUN sed -i "s/httpredir.debian.org/`curl -s -D - http://httpredir.debian.org/demo/debian/ | awk '/^Link:/ { print $2 }' | sed -e 's@<http://\(.*\)/debian/>;@\1@g'`/" /etc/apt/sources.list
-
+###################################
 # Set environment.
 ENV PAGESPEED_VERSION="1.11.33.0"
 ENV NGINX_VERSION="1.9.7.4"
@@ -21,8 +19,9 @@ ENV OPENSSL_VERSION="1.0.1s"
 ENV \
   DEBIAN_FRONTEND=noninteractive \
   TERM=xterm-color
+###################################
 
-# Install packages.
+# Install base utils
 RUN apt-get update && apt-get -y install \
   build-essential \
   curl \
@@ -33,6 +32,10 @@ RUN apt-get update && apt-get -y install \
   zlib1g zlib1g-dev \
   vim \
   wget
+
+# Use actual mirror instead of using httpredir which could break
+RUN sed -i "s/httpredir.debian.org/`curl -s -D - http://httpredir.debian.org/demo/debian/ | awk '/^Link:/ { print $2 }' | sed -e 's@<http://\(.*\)/debian/>;@\1@g'`/" /etc/apt/sources.list
+
 
 WORKDIR /root/
 

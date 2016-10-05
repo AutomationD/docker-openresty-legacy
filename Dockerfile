@@ -12,14 +12,16 @@ MAINTAINER Dmitry Kireev <dmitry@kireev.co>
 
 ###################################
 # Set environment.
-ENV PAGESPEED_VERSION="1.11.33.0"
-ENV NGINX_VERSION="1.9.7.4"
-ENV OPENSSL_VERSION="1.0.1s"
+# 1.11.33.4-1.0.2-1.11.33.4
+ENV PAGESPEED_VERSION="1.11.33.4"
+ENV NGINX_VERSION="1.11.2.1"
+ENV OPENSSL_VERSION="1.0.2j"
 
 ENV \
   DEBIAN_FRONTEND=noninteractive \
   TERM=xterm-color
 ###################################
+
 
 # Install base utils
 RUN apt-get update && apt-get -y install \
@@ -45,7 +47,7 @@ WORKDIR /root/
 
 
 
-# Build nginx with pagespeed and openssl
+### Download Tarballs ###
 RUN \
   # Download PageSpeed
   wget https://github.com/pagespeed/ngx_pagespeed/archive/v${PAGESPEED_VERSION}-beta.tar.gz -O /root/ngx_pagespeed-${PAGESPEED_VERSION}-beta.tar.gz && \
@@ -64,10 +66,11 @@ RUN \
   # Download Nginx
   wget https://openresty.org/download/openresty-${NGINX_VERSION}.tar.gz -O /root/openresty-${NGINX_VERSION}.tar.gz && \
   tar --owner root --group root --no-same-owner -zxf openresty-${NGINX_VERSION}.tar.gz && \
-  rm -f openresty-${NGINX_VERSION}.tar.gz && \
+  rm -f openresty-${NGINX_VERSION}.tar.gz
 
-  # Configure Nginx
-  cd openresty-* && \
+
+### Configure Nginx ###
+RUN  cd openresty-* && \
   ./configure \
   --sbin-path=/usr/sbin/nginx \
   --conf-path=/etc/nginx/nginx.conf \
@@ -80,18 +83,21 @@ RUN \
   --http-uwsgi-temp-path=/var/lib/nginx/uwsgi \
   --lock-path=/var/lock/nginx.lock \
   --pid-path=/run/nginx.pid \
-  # Nginx Options:
-  --with-http_geoip_module \
+
+
+   # Nginx Options:
+  # --with-luajit \
+  # --with-http_geoip_module \
   --with-http_gzip_static_module \
-  --with-http_realip_module \
+  # --with-http_realip_module \
   --with-http_stub_status_module \
   --with-http_ssl_module \
-  --with-http_sub_module \
-  --with-sha1=/usr/include/openssl \
-  --with-md5=/usr/include/openssl \
-  --with-mail \
-  --with-mail_ssl_module \
-  --with-http_secure_link_module \
+#  --with-http_sub_module \
+#  --with-sha1=/usr/include/openssl \
+#  --with-md5=/usr/include/openssl \
+#  --with-mail \
+#  --with-mail_ssl_module \
+#  --with-http_secure_link_module \
   --add-module=/root/ngx_pagespeed-${PAGESPEED_VERSION}-beta \
   --with-openssl=/root/openssl-${OPENSSL_VERSION} \
 #  --with-http_image_filter_module \

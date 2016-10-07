@@ -12,8 +12,8 @@ MAINTAINER Dmitry Kireev <dmitry@kireev.co>
 
 ###################################
 # Set environment.
-# 1.11.33.4-1.0.2j-1.11.33.4
-ENV PAGESPEED_VERSION="1.11.33.4"
+# 1.11.2.1-1.0.2j-1.11.33.2
+ENV PAGESPEED_VERSION="1.11.33.2"
 ENV NGINX_VERSION="1.11.2.1"
 ENV OPENSSL_VERSION="1.0.2j"
 

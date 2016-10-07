@@ -12,8 +12,8 @@ MAINTAINER Dmitry Kireev <dmitry@kireev.co>
 
 ###################################
 # Set environment.
-# 1.11.2.1-1.0.2j-1.11.33.2
-ENV PAGESPEED_VERSION="1.11.33.2"
+# 1.11.2.1-1.0.2j-1.11.33.4
+ENV PAGESPEED_VERSION="1.11.33.4"
 ENV NGINX_VERSION="1.11.2.1"
 ENV OPENSSL_VERSION="1.0.2j"
 
@@ -50,7 +50,7 @@ WORKDIR /root/
 ### Download Tarballs ###
 RUN \
   # Download PageSpeed
-  wget https://github.com/pagespeed/ngx_pagespeed/archive/v${PAGESPEED_VERSION}-beta.tar.gz -O /root/ngx_pagespeed-${PAGESPEED_VERSION}-beta.tar.gz && \
+  wget https://github.com/pagespeed/ngx_pagespeed/archive/v${PAGESPEED_VERSION}-stable.tar.gz -O /root/ngx_pagespeed-${PAGESPEED_VERSION}-beta.tar.gz && \
   tar --owner root --group root --no-same-owner -zxf ngx_pagespeed-${PAGESPEED_VERSION}-beta.tar.gz && \
 
   # Download PageSpeed Optimization Library and extract it to nginx source dir

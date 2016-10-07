@@ -50,7 +50,7 @@ WORKDIR /root/
 ### Download Tarballs ###
 RUN \
   # Download PageSpeed
-  wget https://github.com/pagespeed/ngx_pagespeed/archive/v${PAGESPEED_VERSION}-stable.tar.gz -O /root/ngx_pagespeed-${PAGESPEED_VERSION}-beta.tar.gz && \
+  wget https://github.com/pagespeed/ngx_pagespeed/archive/v${PAGESPEED_VERSION}-beta.tar.gz -O /root/ngx_pagespeed-${PAGESPEED_VERSION}-beta.tar.gz && \
   tar --owner root --group root --no-same-owner -zxf ngx_pagespeed-${PAGESPEED_VERSION}-beta.tar.gz && \
 
   # Download PageSpeed Optimization Library and extract it to nginx source dir

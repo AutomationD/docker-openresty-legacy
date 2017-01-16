@@ -13,8 +13,8 @@ MAINTAINER Dmitry Kireev <dmitry@kireev.co>
 ###################################
 # Set environment.
 # 1.11.2.1-1.0.2j-1.11.33.4-rev-2
-ENV PAGESPEED_VERSION="1.11.33.4"
-ENV NGINX_VERSION="1.11.2.1"
+ENV PAGESPEED_VERSION="1.12.34.2"
+ENV NGINX_VERSION="1.11.2.2"
 ENV OPENSSL_VERSION="1.0.2j"
 
 ENV \
@@ -87,6 +87,7 @@ RUN  echo "Configure Nginx" && \
   --with-http_gzip_static_module \
   --with-http_stub_status_module \
   --with-http_ssl_module \
+  --with-http_realip_module \
   --add-module=/root/ngx_pagespeed-${PAGESPEED_VERSION}-beta \
   --with-openssl=/root/openssl-${OPENSSL_VERSION} \
   --without-http_redis_module \
@@ -108,5 +109,3 @@ RUN  echo "Configure Nginx" && \
   rm -rf openresty-*&& \
   ldconfig && \
   mkdir -p /var/lib/nginx /var/log/nginx
-
-

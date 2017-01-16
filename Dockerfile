@@ -87,6 +87,7 @@ RUN  echo "Configure Nginx" && \
   --with-http_gzip_static_module \
   --with-http_stub_status_module \
   --with-http_ssl_module \
+  --with-http_realip_module \
   --add-module=/root/ngx_pagespeed-${PAGESPEED_VERSION}-beta \
   --with-openssl=/root/openssl-${OPENSSL_VERSION} \
   --without-http_redis_module \
